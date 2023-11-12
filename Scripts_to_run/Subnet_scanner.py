@@ -110,7 +110,10 @@ def ping_subnet(ip_pr, mask):
 
 
 def process_ping(line):
-    ip4 = ipaddress.IPv4Network((0, line[1]))
+    try:
+        ip4 = ipaddress.IPv4Network((0, line[1]))
+    except:
+        ip4 = ipaddress.IPv4Network((0, 32))
     ip_netmask = f"{line[0]}.{ip4.netmask}"
     mask = ip4.prefixlen
     netmask = f"{ip4.netmask}"
