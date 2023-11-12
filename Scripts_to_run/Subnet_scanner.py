@@ -23,12 +23,12 @@ def get_valid_ip(ip_list, ips_used):
 
 def get_usable_ips(ip_subnet):
     try:
-        net = ipaddress.ip_network(ip_subnet, strict=True)
+        ip_subnet = ipaddress.ip_network(ip_subnet, strict=True)
     except ValueError:
         raise ValueError(f"Invalid input format or subnet {ip_subnet}")
     ips = []
-    for ip in net.hosts:
-        ip.append(str(ip))
+    for ip in ip_subnet.hosts():
+        ips.append(str(ip))
     return ips
 
 
