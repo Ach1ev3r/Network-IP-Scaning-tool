@@ -110,7 +110,6 @@ def ping_subnet(ip_pr, mask):
 
 
 def process_ping(line):
-    ip_ne = f"{line[0]}.{line[1]}"
     ip4 = ipaddress.IPv4Network((0, line[1]))
     ip_netmask = f"{line[0]}.{ip4.netmask}"
     mask = ip4.prefixlen
@@ -128,6 +127,8 @@ def process_ping(line):
         ping_responce = ping_subnet(ip_pr, mask)    
         if ping_responce:
             ping_result['ICMP_Responce'] = "Y"
+        else:
+            ping_result['ICMP_Responce'] = "N"
     else:
         ping_result['ICMP_Responce'] = "ICMP Not scanned as is limited to /16 to /32"
     return ping_result
@@ -143,5 +144,5 @@ with open(f'./IP_input_data/{pingfile}.csv', "r") as csv_file:
     now_time = str(now).split()[1].replace(":","_")
     with open(f'./Results/{now_time}.csv', 'w', newline='') as final:
         csv_writer = csv.DictWriter(final, keys, delimiter=",")
-        csv_writer.writeheader
+        csv_writer.writeheader()
         csv_writer.writerows(report)
