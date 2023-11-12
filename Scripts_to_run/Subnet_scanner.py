@@ -133,7 +133,7 @@ def process_ping(line):
     return ping_result
 
 
-with open(f'./IP_imput_data/{pingfile}.csv', "r") as csv_file:
+with open(f'./IP_input_data/{pingfile}.csv', "r") as csv_file:
     ping_list = csv.reader(csv_file)
     for line in ping_list:
         report.append(process_ping(line))
