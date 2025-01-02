@@ -5,7 +5,6 @@ import subprocess
 import concurrent.futures
 from datetime import datetime
 from time import perf_counter
-from iteration_utilities import unique_everseen
 
 report = []
 pingfile = input("What is the file called ")
@@ -45,7 +44,7 @@ def get_first_last(smart_ip_list, ip_list):
         fr_la = ([usable_ips[i] for i in (0, -1)])
         ip_list.append(fr_la[0])
         ip_list.append(fr_la[1])
-    ip_list = list(unique_everseen(ip_list))
+    ip_list = list(dict.fromkeys(ip_list))
     return ip_list
 
 
@@ -61,7 +60,7 @@ def getsmartlist_small(ip_pr):
 def used_ips(ips_used, ip_list):
     for ip in ip_list:
         ips_used.append(ip)
-    ips_used = list(unique_everseen(ips_used))
+    ips_used = list(dict.fromkeys(ips_used))
     return ips_used
 
 
